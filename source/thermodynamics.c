@@ -187,7 +187,7 @@ int thermodynamics_at_z(
       /* For idm_dr calculate at early times the optical depth parameters */
       if (pth->has_idm_dr == _TRUE_){
         /* calculate dmu_idm_dr and its derivatives */
-        pvecthermo[pth->index_th_dmu_idm_dr] = pth->a_idm_dr*pow((1.+z)/1.e7,pth->n_index_idm_dr)*pba->Omega0_idm*pow(pba->h,2);
+        pvecthermo[pth->index_th_dmu_idm_dr] = pth->a_idm_dr*pow((1.+z)/pth->z_dec_idm_dr,pth->n_index_idm_dr)*pba->Omega0_idm*pow(pba->h,2);
         pvecthermo[pth->index_th_ddmu_idm_dr] =  -pvecback[pba->index_bg_H] * pth->n_index_idm_dr / (1+z) * pvecthermo[pth->index_th_dmu_idm_dr];
         pvecthermo[pth->index_th_dddmu_idm_dr] = (pvecback[pba->index_bg_H]*pvecback[pba->index_bg_H]/ (1.+z) * (pth->n_index_idm_dr - 1.) - pvecback[pba->index_bg_H_prime])
           * pth->n_index_idm_dr / (1.+z) * pvecthermo[pth->index_th_dmu_idm_dr];
@@ -220,7 +220,7 @@ int thermodynamics_at_z(
       pvecthermo[pth->index_th_T_idr] = pba->T_idr* (1+z);
 
       /* calculate dmu_idr (self interaction) */
-      pvecthermo[pth->index_th_dmu_idr] = pth->b_idr*pow((1.+z)/1.e7,pth->n_index_idm_dr)*pba->Omega0_idr*pow(pba->h,2);
+      pvecthermo[pth->index_th_dmu_idr] = pth->b_idr*pow((1.+z)/pth->z_dec_idm_dr,pth->n_index_idm_dr)*pba->Omega0_idr*pow(pba->h,2);
     }
   }
 
@@ -4522,7 +4522,7 @@ int thermodynamics_idm_quantities(struct background * pba,
   /** - First deal with any required dark radiation */
   if (pba->has_idr == _TRUE_) {
     T_idr = pba->T_idr*(1.+z);
-    ptdw->dmu_idr = pth->b_idr*pow((1.+z)/1.e7,pth->n_index_idm_dr)*pba->Omega0_idr*pow(pba->h,2);
+    ptdw->dmu_idr = pth->b_idr*pow((1.+z)/pth->z_dec_idm_dr,pth->n_index_idm_dr)*pba->Omega0_idr*pow(pba->h,2);
   }
 
   /** - Now deal with any required dark matter (and its interactions) */
@@ -4552,7 +4552,7 @@ int thermodynamics_idm_quantities(struct background * pba,
     /* Now add also coupling to dark radiation */
     if (pth->has_idm_dr == _TRUE_) {
       /* - idr interaction rate with idm_dr */
-      ptdw->dmu_idm_dr = pth->a_idm_dr*pow((1.+ z)/1.e7,pth->n_index_idm_dr)*pba->Omega0_idm*pow(pba->h,2);
+      ptdw->dmu_idm_dr = pth->a_idm_dr*pow((1.+ z)/pth->z_dec_idm_dr,pth->n_index_idm_dr)*pba->Omega0_idm*pow(pba->h,2);
       ptdw->Sinv_idm_dr  = 4./3.*pvecback[pba->index_bg_rho_idr]/pvecback[pba->index_bg_rho_idm];
       ptdw->T_idm_prime += - 2* ptdw->dmu_idm_dr * ptdw->Sinv_idm_dr * (ptdw->T_idm - T_idr) / pvecback[pba->index_bg_H];
     }
@@ -4736,11 +4736,11 @@ int thermodynamics_idm_initial_temperature(
   /* idm-idr steady state */
   if ((pth->has_idm_dr == _TRUE_) && (pth->n_index_idm_dr == 0)) {
     epsilon = 2*4./3.*pvecback[pba->index_bg_rho_idr]/pvecback[pba->index_bg_rho_idm]*
-      pth->a_idm_dr*pow((1.+ z_ini)/1.e7,pth->n_index_idm_dr)*pba->Omega0_idm*pow(pba->h,2) / pvecback[pba->index_bg_H]*(1.+z_ini);
+      pth->a_idm_dr*pow((1.+ z_ini)/pth->z_dec_idm_dr,pth->n_index_idm_dr)*pba->Omega0_idm*pow(pba->h,2) / pvecback[pba->index_bg_H]*(1.+z_ini);
   }
   /* idm_g steady state */
   else if (pth->has_idm_g == _TRUE_ && pth->n_index_idm_g == -2) {
-    ptdw->dmu_idm_dr = pth->a_idm_dr*pow((1.+ z_ini)/1.e7,pth->n_index_idm_dr)*pba->Omega0_idm*pow(pba->h,2);
+    ptdw->dmu_idm_dr = pth->a_idm_dr*pow((1.+ z_ini)/pth->z_dec_idm_dr,pth->n_index_idm_dr)*pba->Omega0_idm*pow(pba->h,2);
     ptdw->Sinv_idm_dr  = 4./3.*pvecback[pba->index_bg_rho_idr]/pvecback[pba->index_bg_rho_idm];
     alpha = 2.* ptdw->dmu_idm_dr * ptdw->Sinv_idm_dr;
   }

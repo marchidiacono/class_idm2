@@ -299,6 +299,7 @@ struct thermodynamics
   double a_idm_dr;       /**< strength of the coupling between interacting dark matter and interacting dark radiation (idm-idr) */
   double b_idr;          /**< strength of the self coupling for interacting dark radiation (idr-idr) */
   double n_index_idm_dr; /**< temperature dependence of the interactions between dark matter and dark radiation */
+  double z_dec_idm_dr;   /**< Normalization factor for interaction rate DR - DM*/
   double cross_idm_b;    /**< cross section between interacting dark matter and baryons */
   int n_index_idm_b;     /**< temperature dependence of the interactions between dark matter and baryons */
   double n_coeff_idm_b;  /**< numerical n-dependent coefficient for idm_b */

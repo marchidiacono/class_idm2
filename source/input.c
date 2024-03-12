@@ -3062,6 +3062,9 @@ int input_read_parameters_species(struct file_content * pfc,
     }
   }
 
+  class_read_double("z_dec_idm_dr",pth->z_dec_idm_dr);
+  printf("input z_dec_idm_dr=%f",pth->z_dec_idm_dr);
+  //class_test(pth->z_dec_idm_dr)
   /** 7.2.3) Dark Matter interacting with baryons */
   /** 7.2.3.a) idm_b coupling stregth */
   if (pba->Omega0_idm > 0 || f_idm > 0) {
@@ -5793,6 +5796,8 @@ int input_default_params(struct background *pba,
   pth->a_idm_dr = 0.;
   /** 7.2.2.d) temperature scaling idm_dr */
   pth->n_index_idm_dr = 0;
+  /**Normalization factor interaction DR- DM */
+  pth->z_dec_idm_dr = 1.;
   /** 7.2.2.e) Approximation mode of idr */
   ppt->idr_nature=idr_free_streaming;
   /** 7.2.2.f) idr self-interactions*/
