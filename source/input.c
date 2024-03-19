@@ -2348,6 +2348,7 @@ int input_read_parameters_species(struct file_content * pfc,
   double Omega_tot;
   double sigma_B; // Stefan-Boltzmann constant
   double stat_f_idr = 7./8.;
+  double g_idr = 2.;
   double f_cdm=1., f_idm=0.;
   short has_m_budget = _FALSE_, has_cdm_userdefined = _FALSE_;
   double Omega_m_remaining = 0.;
@@ -2867,24 +2868,24 @@ int input_read_parameters_species(struct file_content * pfc,
 
   /** 7.2.2.b) stat_f_idr  */
   class_read_double("stat_f_idr",stat_f_idr);
-
+  class_read_double("g_idr",g_idr);
   if (flag1 == _TRUE_) {
-    pba->T_idr = pow(param1/stat_f_idr*(7./8.)/pow(11./4.,(4./3.)),(1./4.)) * pba->T_cmb;
+    pba->T_idr = pow(param1/(g_idr/2.)/stat_f_idr*(7./8.)/pow(11./4.,(4./3.)),(1./4.)) * pba->T_cmb;
     if (input_verbose > 1)
       printf("You passed N_idr = N_dg = %e, this is equivalent to xi_idr = %e in the ETHOS notation. \n", param1, pba->T_idr/pba->T_cmb);
   }
   else if (flag2 == _TRUE_) {
-    pba->T_idr = pow(param2/stat_f_idr*(7./8.)/pow(11./4.,(4./3.)),(1./4.)) * pba->T_cmb;
+    pba->T_idr = pow(param2/(g_idr/2.)/stat_f_idr*(7./8.)/pow(11./4.,(4./3.)),(1./4.)) * pba->T_cmb;
     if (input_verbose > 2)
       printf("You passed N_dg = N_idr = %e, this is equivalent to xi_idr = %e in the ETHOS notation. \n", param2, pba->T_idr/pba->T_cmb);
   }
   else if (flag3 == _TRUE_) {
     pba->T_idr = param3 * pba->T_cmb;
     if (input_verbose > 1)
-      printf("You passed xi_idr = %e, this is equivalent to N_idr = N_dg = %e in the NADM notation. \n", param3, stat_f_idr*pow(param3,4.)/(7./8.)*pow(11./4.,(4./3.)));
+      printf("You passed xi_idr = %e, this is equivalent to N_idr = N_dg = %e in the NADM notation. \n", param3, stat_f_idr*(g_idr/2.)*pow(param3,4.)/(7./8.)*pow(11./4.,(4./3.)));
   }
   if (flag1 == _TRUE_ || flag2 == _TRUE_ || flag3 == _TRUE_)
-    pba->Omega0_idr = stat_f_idr*pow(pba->T_idr/pba->T_cmb,4.)*pba->Omega0_g;
+    pba->Omega0_idr = (g_idr/2.)*stat_f_idr*pow(pba->T_idr/pba->T_cmb,4.)*pba->Omega0_g;
 
   /** 7.2.2.c) idm_dr coupling */
   /* Read */
