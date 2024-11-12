@@ -198,6 +198,8 @@ struct perturbations
 
   enum possible_gauges gauge; /**< gauge in which to perform this calculation */
 
+  short has_matter_source_in_current_gauge; /**< whether to keep matter and baryon+CDM sources in current gauge, instead of automatic conversion to gauge-invariant variables */
+
   //@}
 
   /** @name - indices running on modes (scalar, vector, tensor) */
@@ -439,6 +441,8 @@ struct perturbations
   short perturbations_verbose; /**< flag regulating the amount of information sent to standard output (none if set to zero) */
 
   ErrorMsg error_message; /**< zone for writing error messages */
+
+  short is_allocated; /**< flag is set to true if allocated */
 
   //@}
 
