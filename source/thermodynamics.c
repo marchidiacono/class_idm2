@@ -4389,6 +4389,7 @@ int thermodynamics_output_titles(
       class_store_columntitle(titles,"R_idm_b",_TRUE_);
     }
     if (pth->has_idm_dr == _TRUE_){
+      class_store_columntitle(titles,"dmu_dr_idm",_TRUE_);
       class_store_columntitle(titles,"dmu_idm_dr",_TRUE_);
       class_store_columntitle(titles,"tau_idm_dr",_TRUE_);
       class_store_columntitle(titles,"tau_idr",_TRUE_);
@@ -4468,6 +4469,7 @@ int thermodynamics_output_data(
       }
       if (pth->has_idm_dr == _TRUE_){
         class_store_double(dataptr,pvecthermo[pth->index_th_dmu_idm_dr],_TRUE_,storeidx);
+        class_store_double(dataptr,pvecthermo[pth->index_th_ddmu_idm_dr],_TRUE_,storeidx);
         class_store_double(dataptr,pvecthermo[pth->index_th_tau_idm_dr],_TRUE_,storeidx);
         class_store_double(dataptr,pvecthermo[pth->index_th_tau_idr],_TRUE_,storeidx);
         class_store_double(dataptr,pvecthermo[pth->index_th_g_idm_dr],_TRUE_,storeidx);

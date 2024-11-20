@@ -1131,7 +1131,7 @@ int output_thermodynamics(
       fprintf(thermofile,"#         r_d = approximate comoving value of photon damping scale \n");
     if (pth->has_idm_dr == _TRUE_) {
       fprintf(thermofile,"#  dmu_idm_dr = scattering rate of idr with idm_dr (i.e. idr opacity to idm_dr scattering) (units 1/Mpc)\n");
-      fprintf(thermofile,"# ddmu_idm_dr = derivative of this rate\n");
+      fprintf(thermofile,"# ddmu_idm_dr = derivative of this rate, or scattering of idm off idr \n");
       fprintf(thermofile,"#  tau_idm_dr = optical depth of idm_dr (due to interactions with idr) \n");
       fprintf(thermofile,"#     tau_idr = optical depth of idr (due to self-interactions) \n");
       fprintf(thermofile,"#    g_idm_dr = visibility function of idm_idr \n");
