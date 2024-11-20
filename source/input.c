@@ -3064,7 +3064,7 @@ int input_read_parameters_species(struct file_content * pfc,
   }
 
   class_read_double("z_dec_idm_dr",pth->z_dec_idm_dr);
-  printf("input z_dec_idm_dr=%f",pth->z_dec_idm_dr);
+  //printf("input z_dec_idm_dr=%f",pth->z_dec_idm_dr);
   //class_test(pth->z_dec_idm_dr)
   /** 7.2.3) Dark Matter interacting with baryons */
   /** 7.2.3.a) idm_b coupling stregth */
